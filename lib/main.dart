@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
           darkTheme: ThemeData(
             useMaterial3: true,
             brightness: Brightness.dark,
-            colorScheme: ColorScheme.fromSeed(
+            colorScheme: darkDynamic ?? ColorScheme.fromSeed(
               seedColor: Colors.teal,
               brightness: Brightness.dark,
             ),
