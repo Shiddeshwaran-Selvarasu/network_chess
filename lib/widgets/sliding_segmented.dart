@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class SlidingSegmentedControl extends StatefulWidget {
-  const SlidingSegmentedControl({Key? key,required this.myTabs,required this.selectIndex,required this.onValueChanged}) : super(key: key);
+  const SlidingSegmentedControl({Key? key,required this.tabs,required this.selectIndex,required this.onValueChanged}) : super(key: key);
 
-  final Map<int, Widget> myTabs;
+  final Map<int, Widget> tabs;
   final int selectIndex;
   final Function(int?) onValueChanged;
 
@@ -25,7 +24,7 @@ class _SlidingSegmentedControlState extends State<SlidingSegmentedControl> {
           child: CupertinoSlidingSegmentedControl(
             padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
             groupValue: widget.selectIndex,
-            children: widget.myTabs,
+            children: widget.tabs,
             onValueChanged: widget.onValueChanged,
           ),
         ),
