@@ -150,59 +150,56 @@ class _GamePageState extends State<GamePage> {
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: Stack(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          if (aiThinking)
-            SizedBox(
-              height: MediaQuery.of(context).size.height*0.2,
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 25,
-                    horizontal: MediaQuery.of(context).size.width * 0.4,
-                  ),
-                  child: const ColorLoader(
-                    dotRadius: 10,
-                    radius: 25,
-                  ),
-                ),
-              ),
-            ),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.black,
-                      border: Border.all(color: Colors.black, width: 5),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: BoardController(
-                        state: flipBoard ? state.board.flipped() : state.board,
-                        playState: state.state,
-                        pieceSet: PieceSet.merida(),
-                        theme: boards[widget.boardColor],
-                        moves: state.moves,
-                        onMove: _onMove,
-                        onPremove: _onMove,
-                        markerTheme: MarkerTheme(
-                          empty: MarkerTheme.dot,
-                          piece: MarkerTheme.corners(),
-                        ),
-                        promotionBehaviour: PromotionBehaviour.autoPremove,
-                        animatePieces: true,
-                        animationDuration: const Duration(milliseconds: 1000),
-                        animationCurve: Curves.linear,
+          aiThinking
+              ? SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.2,
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 25,
+                        horizontal: MediaQuery.of(context).size.width * 0.4,
+                      ),
+                      child: const ColorLoader(
+                        dotRadius: 10,
+                        radius: 25,
                       ),
                     ),
                   ),
+                )
+              : SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Center(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.black,
+                  border: Border.all(color: Colors.black, width: 5),
                 ),
-              ],
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: BoardController(
+                    state: flipBoard ? state.board.flipped() : state.board,
+                    playState: state.state,
+                    pieceSet: PieceSet.merida(),
+                    theme: boards[widget.boardColor],
+                    moves: state.moves,
+                    onMove: _onMove,
+                    onPremove: _onMove,
+                    markerTheme: MarkerTheme(
+                      empty: MarkerTheme.dot,
+                      piece: MarkerTheme.corners(),
+                    ),
+                    promotionBehaviour: PromotionBehaviour.autoPremove,
+                    animatePieces: true,
+                    animationDuration: const Duration(milliseconds: 1000),
+                    animationCurve: Curves.linear,
+                  ),
+                ),
+              ),
             ),
           ),
         ],
