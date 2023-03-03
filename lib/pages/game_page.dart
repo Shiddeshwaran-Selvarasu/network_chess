@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:network_chess/widgets/loading_animation.dart';
 import 'package:square_bishop/square_bishop.dart';
 import 'package:squares/squares.dart';
