@@ -9,6 +9,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.10.0"
+  badges:
+    dependency: transitive
+    description:
+      name: badges
+      sha256: "461031a60efbb95276f52107f63d5d45008b5ca1eb7f8ca440cadda9ec2143b0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.2"
+  bishop:
+    dependency: "direct main"
+    description:
+      name: bishop
+      sha256: "0e877c8043a57d0d8d35dca37771e6040fd16aaa72e4e0e92c1ab7e8302c63b7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -25,22 +41,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.1"
-  chess:
-    dependency: transitive
-    description:
-      name: chess
-      sha256: "69dd13135d2ad3fb523483488db811d4aea2e550bfd6454e93ceccaf042a8614"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.0"
-  chess_vectors_flutter:
-    dependency: transitive
-    description:
-      name: chess_vectors_flutter
-      sha256: "988ff9ec3fa00174f0c0bbe0d50ca776803d9c8fff84d326876ee8a2e11dce31"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.18"
   clock:
     dependency: transitive
     description:
@@ -73,6 +73,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.6.2"
+  equatable:
+    dependency: transitive
+    description:
+      name: equatable
+      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -86,14 +94,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_chess_board:
-    dependency: "direct main"
-    description:
-      name: flutter_chess_board
-      sha256: f830a44acca1aec751bd4de551f1e5ac466d8bb67e6476e325c5b693398d5755
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -123,6 +123,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  loading_animation_widget:
+    dependency: "direct main"
+    description:
+      name: loading_animation_widget
+      sha256: "1901682600273a966c34cf44a85fc5355da92a8d08a8a43c11adc4e471993e3a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0+4"
   matcher:
     dependency: transitive
     description:
@@ -147,6 +155,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.0"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      sha256: "03bac4c528c64c95c722ec99280375a6f2fc708eec17c7b3f07253b626cd2a20"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   path:
     dependency: transitive
     description:
@@ -155,6 +171,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.2"
+  provider:
+    dependency: "direct main"
+    description:
+      name: provider
+      sha256: cdbe7530b12ecd9eb455bdaa2fcb8d4dad22e80b8afb4798b41479d5ce26847f
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.5"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -168,6 +192,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
+  square_bishop:
+    dependency: "direct main"
+    description:
+      name: square_bishop
+      sha256: "351a39a520c45c0486bb2893fcc2d5ac9d003e4b3c4f4bb4c2c170cce86cf846"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.2"
+  squares:
+    dependency: "direct main"
+    description:
+      name: squares
+      sha256: "61c25338899864c195916fb51da3f299f8c9cd49d6afd6fc287d9ad527e952f1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.3"
   stack_trace:
     dependency: transitive
     description:
@@ -208,14 +248,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.16"
-  tuple:
-    dependency: transitive
-    description:
-      name: tuple
-      sha256: "0ea99cd2f9352b2586583ab2ce6489d1f95a5f6de6fb9492faaf97ae2060f0aa"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1"
   vector_math:
     dependency: transitive
     description:

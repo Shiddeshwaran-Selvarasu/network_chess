@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:network_chess/pages/game_page.dart';
+import 'package:squares/squares.dart';
 
 import '../widgets/sliding_segmented.dart';
 
@@ -55,8 +56,8 @@ class _HomePageState extends State<HomePage> {
           ),
           SlidingSegmentedControl(
             tabs: const {
-              0: Text('Black'),
-              1: Text('White'),
+              Squares.white: Text('White'),
+              Squares.black: Text('Black'),
             },
             selectIndex: pieceColor,
             onValueChanged: (i) {
@@ -75,9 +76,9 @@ class _HomePageState extends State<HomePage> {
           SlidingSegmentedControl(
             tabs: const {
               0: Text('Brown'),
-              1: Text('Dark Brown'),
-              2: Text('Orange'),
-              3: Text('Green'),
+              1: Text('Blue Grey'),
+              2: Text('Dart'),
+              3: Text('Pink'),
             },
             selectIndex: boardColor,
             onValueChanged: (i) {

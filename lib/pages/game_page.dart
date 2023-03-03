@@ -1,8 +1,15 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_chess_board/flutter_chess_board.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:network_chess/widgets/loading_animation.dart';
+import 'package:square_bishop/square_bishop.dart';
+import 'package:squares/squares.dart';
+import 'package:bishop/bishop.dart' as bishop;
 
 class GamePage extends StatefulWidget {
-  const GamePage({Key? key,required this.boardColor,required this.pieceColor}) : super(key: key);
+  const GamePage({Key? key, required this.boardColor, required this.pieceColor})
+      : super(key: key);
 
   final int boardColor;
   final int pieceColor;
@@ -12,7 +19,54 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  final ChessBoardController _controller = ChessBoardController();
+  late bishop.Game game;
+  late SquaresState state;
+  bool aiThinking = false;
+  bool flipBoard = false;
+
+  List<BoardTheme> boards = [
+    BoardTheme.brown,
+    BoardTheme.blueGrey,
+    BoardTheme.dart,
+    BoardTheme.pink,
+  ];
+
+  @override
+  void initState() {
+    if (widget.pieceColor == Squares.black) {
+      aiMove();
+    }
+    _resetGame(false);
+    super.initState();
+  }
+
+  void _resetGame([bool ss = true]) {
+    game = bishop.Game(variant: bishop.Variant.standard());
+    state = game.squaresState(widget.pieceColor);
+    if (ss) setState(() {});
+  }
+
+  void _flipBoard() => setState(() => flipBoard = !flipBoard);
+
+  void _onMove(Move move) async {
+    bool result = game.makeSquaresMove(move);
+    if (result) {
+      setState(() => state = game.squaresState(widget.pieceColor));
+    }
+    if (state.state == PlayState.theirTurn && !aiThinking) {
+      await aiMove();
+    }
+  }
+
+  Future<void> aiMove() async {
+    setState(() => aiThinking = true);
+    await Future.delayed(Duration(milliseconds: Random().nextInt(4750) + 1000));
+    game.makeRandomMove();
+    setState(() {
+      aiThinking = false;
+      state = game.squaresState(widget.pieceColor);
+    });
+  }
 
   showAlert(var context) {
     showDialog(
@@ -92,16 +146,67 @@ class _GamePageState extends State<GamePage> {
             showAlert(context);
           },
         ),
-        title: const Text('Network Chess'),
+        title: const Text('AI Chess'),
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: Center(
-        child: ChessBoard(
-          controller: _controller,
-          boardColor: BoardColor.values[widget.boardColor],
-        ),
+      body: Stack(
+        children: [
+          if (aiThinking)
+            SizedBox(
+              height: MediaQuery.of(context).size.height*0.2,
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 25,
+                    horizontal: MediaQuery.of(context).size.width * 0.4,
+                  ),
+                  child: const ColorLoader(
+                    dotRadius: 10,
+                    radius: 25,
+                  ),
+                ),
+              ),
+            ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.black,
+                      border: Border.all(color: Colors.black, width: 5),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: BoardController(
+                        state: flipBoard ? state.board.flipped() : state.board,
+                        playState: state.state,
+                        pieceSet: PieceSet.merida(),
+                        theme: boards[widget.boardColor],
+                        moves: state.moves,
+                        onMove: _onMove,
+                        onPremove: _onMove,
+                        markerTheme: MarkerTheme(
+                          empty: MarkerTheme.dot,
+                          piece: MarkerTheme.corners(),
+                        ),
+                        promotionBehaviour: PromotionBehaviour.autoPremove,
+                        animatePieces: true,
+                        animationDuration: const Duration(milliseconds: 1000),
+                        animationCurve: Curves.linear,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
