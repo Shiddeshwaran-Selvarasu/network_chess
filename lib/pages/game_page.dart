@@ -53,6 +53,9 @@ class _GamePageState extends State<GamePage> {
       setState(() => state = game.squaresState(widget.pieceColor));
     }
     if (state.state == PlayState.theirTurn && !aiThinking) {
+      if(game.gameOver){
+        print('game Over');
+      }
       await aiMove();
     }
   }
@@ -203,6 +206,15 @@ class _GamePageState extends State<GamePage> {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          setState(() {
+            game.undo();
+            state = game.squaresState(widget.pieceColor);
+          });
+        },
+        child: const Icon(Icons.undo),
       ),
     );
   }
