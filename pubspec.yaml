@@ -35,7 +35,6 @@ dependencies:
   squares:
   bishop: ^0.4.0
   square_bishop: ^0.2.2
-  loading_animation_widget:
   cupertino_icons:
   provider:
 
