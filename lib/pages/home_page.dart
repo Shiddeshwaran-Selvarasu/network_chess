@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:network_chess/pages/game_page.dart';
+import 'package:network_chess/pages/hosting_page.dart';
+import 'package:network_chess/pages/joining_page.dart';
 import 'package:squares/squares.dart';
 
 import '../widgets/sliding_segmented.dart';
@@ -23,6 +25,19 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Network Chess'),
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add_link_rounded),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const JoiningPage(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Column(
@@ -88,22 +103,46 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GamePage(
-                        boardColor: boardColor,
-                        pieceColor: pieceColor,
-                      ),
-                    ),
-                  );
-                },
-                child: const Text('Start'),
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => GamePage(
+                            boardColor: boardColor,
+                            pieceColor: pieceColor,
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text('Start Game'),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HostingPage(
+                            boardColor: boardColor,
+                            pieceColor: pieceColor,
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text('Host Game'),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

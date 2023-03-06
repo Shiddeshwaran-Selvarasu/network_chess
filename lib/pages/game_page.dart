@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -7,8 +8,11 @@ import 'package:squares/squares.dart';
 import 'package:bishop/bishop.dart' as bishop;
 
 class GamePage extends StatefulWidget {
-  const GamePage({Key? key, required this.boardColor, required this.pieceColor})
-      : super(key: key);
+  const GamePage({
+    Key? key,
+    required this.boardColor,
+    required this.pieceColor,
+  }) : super(key: key);
 
   final int boardColor;
   final int pieceColor;
@@ -22,6 +26,7 @@ class _GamePageState extends State<GamePage> {
   late SquaresState state;
   bool aiThinking = false;
   bool flipBoard = false;
+  int moveCount = 0;
 
   List<BoardTheme> boards = [
     BoardTheme.brown,
@@ -48,19 +53,21 @@ class _GamePageState extends State<GamePage> {
   void _flipBoard() => setState(() => flipBoard = !flipBoard);
 
   void _onMove(Move move) async {
+    moveCount = 0;
     bool result = game.makeSquaresMove(move);
     if (result) {
       setState(() => state = game.squaresState(widget.pieceColor));
     }
+    if (game.gameOver) {
+      print('game Over');
+    }
     if (state.state == PlayState.theirTurn && !aiThinking) {
-      if(game.gameOver){
-        print('game Over');
-      }
       await aiMove();
     }
   }
 
   Future<void> aiMove() async {
+    moveCount++;
     setState(() => aiThinking = true);
     await Future.delayed(Duration(milliseconds: Random().nextInt(4750) + 1000));
     game.makeRandomMove();
@@ -208,11 +215,14 @@ class _GamePageState extends State<GamePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          setState(() {
-            game.undo();
-            state = game.squaresState(widget.pieceColor);
-          });
+        onPressed: () {
+          if (!aiThinking) {
+            setState(() {
+              game.undo();
+              game.undo();
+              state = game.squaresState(widget.pieceColor);
+            });
+          }
         },
         child: const Icon(Icons.undo),
       ),
